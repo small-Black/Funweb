@@ -7,7 +7,7 @@ var fs = require("fs");
 var superagent = require('../node_modules/superagent');
 var cheerio = require('../node_modules/cheerio');
 var async = require('../node_modules/async');
-var mongodb = require("./db");
+var db = require("./db");
 var getDataArr = [];
 
 function formatTime(time) {
@@ -60,7 +60,7 @@ async.parallel(getDataArr, function(err, result) {
             data.push(child_ele);
         });
     });
-    mongodb.insert("hoax",data,function(result){
+    db.multInsert("hoax",data,function(result, fields){
         console.log("success");
     });
    // fs.writeFile("fun.json", JSON.stringify(result), function(err, result) { console.log("success"); });
